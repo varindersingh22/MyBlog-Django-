@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if category_posts%}
+<hr>
+<h1>{{cats}} Categories</h1>
+<hr>
+{% for posts in category_posts%}
+<br>
+<div class="row">
+    <div class="leftcolumn">
+      
+      <div class="card">
+        <h2>{{posts.title}}</h2>
+        <h5>Title description, Dec 7, 2017</h5>
+        <div class="fakeimg" style="height:200px;">Image</div>
+        <p>Some text..</p>
+        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+      </div>
+      
+    </div>
+
+  </div>
+  {% endfor %}
+  <br>
+  {%else%}
+NO posts
+{%endif%}
+  
+  
+
+{% endblock %}

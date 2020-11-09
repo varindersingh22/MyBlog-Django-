@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{%block title%}
+    <title>Create New Category</title>
+    {% endblock %}
+{% block content %}
+<!--Background Styling Css-->
+<style>@keyframes animate {
+    0%{
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+    100%{
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+}
+
+.background {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    background:  #0093E9;
+    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+    overflow: hidden;
+    z-index: -1;
+}
+.background li {
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    animation: animate 19s linear infinite;
+}
+
+
+
+
+
+
+.background li:nth-child(0) {
+    left: 6%;
+    width: 106px;
+    height: 106px;
+    bottom: -106px;
+    animation-delay: 1s;
+}
+.background li:nth-child(1) {
+    left: 36%;
+    width: 183px;
+    height: 183px;
+    bottom: -183px;
+    animation-delay: 5s;
+}
+.background li:nth-child(2) {
+    left: 16%;
+    width: 166px;
+    height: 166px;
+    bottom: -166px;
+    animation-delay: 8s;
+}
+.background li:nth-child(3) {
+    left: 9%;
+    width: 110px;
+    height: 110px;
+    bottom: -110px;
+    animation-delay: 2s;
+}
+.background li:nth-child(4) {
+    left: 58%;
+    width: 190px;
+    height: 190px;
+    bottom: -190px;
+    animation-delay: 16s;
+}
+.background li:nth-child(5) {
+    left: 79%;
+    width: 161px;
+    height: 161px;
+    bottom: -161px;
+    animation-delay: 11s;
+}
+.background li:nth-child(6) {
+    left: 45%;
+    width: 190px;
+    height: 190px;
+    bottom: -190px;
+    animation-delay: 8s;
+}
+.background li:nth-child(7) {
+    left: 16%;
+    width: 134px;
+    height: 134px;
+    bottom: -134px;
+    animation-delay: 25s;
+}
+.background li:nth-child(8) {
+    left: 50%;
+    width: 193px;
+    height: 193px;
+    bottom: -193px;
+    animation-delay: 1s;
+}
+.background li:nth-child(9) {
+    left: 34%;
+    width: 151px;
+    height: 151px;
+    bottom: -151px;
+    animation-delay: 7s;
+}</style>
+<style>
+    .btn-grad {background-image: linear-gradient(to right, #283048 0%, #859398  51%, #283048  100%)}
+    .btn-grad {
+       margin: 5px;
+       padding: 15px 25px;
+       text-align: center;
+       text-transform: uppercase;
+       transition: 0.5s;
+       background-size: 200% auto;
+       color: white;            
+       box-shadow: 0 0 20px #eee;
+       border-radius: 10px;
+       display: block;
+     }
+
+     .btn-grad:hover {
+       background-position: right center; /* change the direction of the change here */
+       color: #fff;
+       text-decoration: none;
+     }
+     .log{
+        border-left: 2px solid black;
+        border-right: 2px solid black;
+        border-bottom: 2px solid black;
+        border-top: 2px solid black;
+        height: 250px;
+        padding: 20px;
+         
+     }
+     
+    </style>
+    <link href='https://fonts.googleapis.com/css?family=Bungee Inline' rel='stylesheet'>
+<!------------------------>
+<body>
+     <!---Html part used to make background-->
+     <ul class="background">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+     </ul>
+     <!-------------------------------------->
+      <br>
+      <br>
+     <div class="log">
+        
+<h1 style="font-family: 'Bungee Inline';font-size: 40px;">Add  Category</h1>
+<hr style="height:2px;border-width:0;color:black;background-color:black">
+{% if user.is_authenticated %}
+<div class="form-group" style="font-weight:bold;font-family: 'Bungee Inline'">
+    <form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn-grad">Add</button>
+    </form>
+    
+    
+</div>
+<br>
+{% endif %}
+
+</div>
+<hr>
+<div class="log">
+<div class="form-group" style="font-weight:bold;font-family: 'Bungee Inline'">
+    <h1><ul>Categories</ul><hr></h1>
+    
+    {% for item in cat_menu %}
+       <a> #{{item}}</a><br>
+        {% endfor %}
+    
+</div>
+</div>
+</body>
+{% endblock %}

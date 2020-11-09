@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+{% if category_posts%}
+<hr>
+<h1>{{cats}} Categories</h1>
+<hr>
+{% for posts in category_posts%}
+<br>
+
+          
+       <li><h2>{{posts.title}}</h2></li> 
+       
+        
+        
+    
+      
+    
+  {% endfor %}
+  <h4><a href="{%url 'home' %}">Back</a></h4>
+  <br>
+  {%else%}
+NO posts
+{%endif%}
+  
+  
+
+{% endblock %}
+</body>

@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{%load static%}
+
+{%block title%}
+    <title>{{post.title_tag}}</title>
+    {% endblock %}
+{% block content %}
+<!--Background Styling Css-->
+<style>@keyframes animate {
+  0%{
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+      border-radius: 0;
+  }
+  100%{
+      transform: translateY(-1000px) rotate(720deg);
+      opacity: 0;
+      border-radius: 50%;
+  }
+}
+
+.background {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  background:  #0093E9;
+  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+  overflow: hidden;
+  z-index: -1;
+}
+.background li {
+  position: absolute;
+  display: block;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  animation: animate 19s linear infinite;
+}
+
+
+
+
+
+
+.background li:nth-child(0) {
+  left: 6%;
+  width: 106px;
+  height: 106px;
+  bottom: -106px;
+  animation-delay: 1s;
+}
+.background li:nth-child(1) {
+  left: 36%;
+  width: 183px;
+  height: 183px;
+  bottom: -183px;
+  animation-delay: 5s;
+}
+.background li:nth-child(2) {
+  left: 16%;
+  width: 166px;
+  height: 166px;
+  bottom: -166px;
+  animation-delay: 8s;
+}
+.background li:nth-child(3) {
+  left: 9%;
+  width: 110px;
+  height: 110px;
+  bottom: -110px;
+  animation-delay: 2s;
+}
+.background li:nth-child(4) {
+  left: 58%;
+  width: 190px;
+  height: 190px;
+  bottom: -190px;
+  animation-delay: 16s;
+}
+.background li:nth-child(5) {
+  left: 79%;
+  width: 161px;
+  height: 161px;
+  bottom: -161px;
+  animation-delay: 11s;
+}
+.background li:nth-child(6) {
+  left: 45%;
+  width: 190px;
+  height: 190px;
+  bottom: -190px;
+  animation-delay: 8s;
+}
+.background li:nth-child(7) {
+  left: 16%;
+  width: 134px;
+  height: 134px;
+  bottom: -134px;
+  animation-delay: 25s;
+}
+.background li:nth-child(8) {
+  left: 50%;
+  width: 193px;
+  height: 193px;
+  bottom: -193px;
+  animation-delay: 1s;
+}
+.background li:nth-child(9) {
+  left: 34%;
+  width: 151px;
+  height: 151px;
+  bottom: -151px;
+  animation-delay: 7s;
+}
+  .log{
+        border-left: 2px solid black;
+        border-right: 2px solid black;
+        border-bottom: 2px solid black;
+        border-top: 2px solid black;
+        height: inherit;
+        padding: 20px;
+         
+     }
+     
+     .btn-grad {background-image: linear-gradient(to right, #1FA2FF 0%, #12D8FA  51%, #1FA2FF  100%)}
+         .btn-grad {
+            margin: 10px;
+            padding: 5px 5px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;            
+            box-shadow: 0 0 20px #eee;
+            border-radius: 10px;
+            display: block;
+          }
+
+          .btn-grad:hover {
+            background-position: right center; /* change the direction of the change here */
+            color: #fff;
+            text-decoration: none;
+          }
+         </style>
+
+<!------------------------>
+<link href='https://fonts.googleapis.com/css?family=Bungee Inline' rel='stylesheet'>
+
+<link href='https://fonts.googleapis.com/css?family=Barrio' rel='stylesheet'>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<ul class="background">
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+<!-------------------------------------->
+<!--cuurent user: {{user.id}}
+post by:{{post.author.id}}-->
+<hr>
+<h1 style="font-weight: bold;font-size: 70px;">{{post.title}}</h1>
+<small style="font-size: 25px;font-family: Barrio;">By: <a href="{% url 'show_profile' post.author.profile.id%}" style="color: black;font-size: 25px;font-family: Barrio;"></small>
+<img src="{{post.author.header_image.url}}">
+
+{{post.author.profile.user}}</a>
+<hr>
+{{post.body|safe }}
+<hr>
+{% if user.is_authenticated %}
+{% if user.id == post.author.id%}
+<a href="{% url 'update_post' post.pk%}">Edit</a>
+<a href="{% url 'delete_post' post.pk%}">Delete</a>
+{% endif%}
+{%endif%}
+
+<br/>
+{% if user.is_authenticated %}
+<form action="{%url 'like_post' post.pk %}" method="POST">
+    {% csrf_token %}
+    {% if liked %}
+    <button type="submit" name='post_id' value="{{post.id}}" ><i class="material-icons" style="color: red;" >thumb_up</i></button><b>  {{total_likes}}</b>
+    {%else%}
+    <button type="submit" name='post_id' value="{{post.id}}"><i class="material-icons" >thumb_up</i></button><b>  {{total_likes}}</b>
+    {%endif%}
+    {% endif%}
+    <a href="{% url 'login'%}" style="font-weight: bold;color: black;">Login to like post</a>
+    <button class='btn-grad' ><a href="{% url 'add_comment' post.pk %}">Add Comment</a></button>
+    <a href="{%url 'home' %}" style="color: black;font-size: 30px;"><i class="material-icons" style="color: black;font-size: 40px;" >exit_to_app</i>Back</a>
+</form>
+
+
+<hr>
+<div class="log">
+<h2>Comments </h2>
+<hr style="height:2px;border-width:0;color:black;background-color:black">
+
+{% if not post.comments.all%}
+  No comments yet
+  
+{%else%}
+
+ {% for comment in post.comments.all %}
+ <b style="font-size: 20px;"><u>{{comment.name}}</u></b>
+   
+   <br>
+   {{comment.body}}
+   <br>
+   {%endfor%}
+{%endif%}
+
+</div>
+
+{% endblock %}
